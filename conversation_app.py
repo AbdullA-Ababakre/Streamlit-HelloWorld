@@ -13,6 +13,9 @@ st.title("Streamlit Conversation App")
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
+# iterate through the messages in the session state
+# and display them in the chat message container
+# identify user and assistant messages by their role
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
@@ -20,7 +23,8 @@ for message in st.session_state.messages:
 
 # echo the user input
 # := is used to assign a value to a variable in the same line as the variable is declared
-if prompt := st.chat_input("What is up?"):
+prompt = st.chat_input("What is up?")
+if prompt:
     # Display user message in chat message container
     st.chat_message("user").markdown(prompt)
     # add message to history
