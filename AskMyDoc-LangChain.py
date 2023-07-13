@@ -1,7 +1,7 @@
 import streamlit as st
 import openai
 from langchain.llms import OpenAI
-from langchain.text_splitter import CharactorTextSpliter
+from langchain.text_splitter import CharacterTextSplitter
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.vectorstores import Chroma
 from langchain.chains import RetrievalQA
@@ -20,3 +20,18 @@ openai.api_key = api_key
 
 if uploaded_file is not None:
     st.write("File uploaded")
+    doc = [uploaded_file.read().decode()]
+
+    # split the text into chunks
+    text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
+    texts = text_splitter.create_documents(doc)
+
+    # create embeddings
+    embeddings = OpenAIEmbeddings(openai_api_key=api_key)
+    # create a vectorstore from documents
+    db = Chroma.from_documents(texts, embeddings)
+    # create retriever interface
+    retriever = db.as_retriever()
+    # create QA chain
+    qa = RetrievalQA.from_chain_type(llm=OpenAI(openai_api_key=api_key), chain_type="stuff", retriever=retriever)
+    
