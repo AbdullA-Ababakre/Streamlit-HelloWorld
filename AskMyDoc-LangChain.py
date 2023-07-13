@@ -34,4 +34,5 @@ if uploaded_file is not None:
     retriever = db.as_retriever()
     # create QA chain
     qa = RetrievalQA.from_chain_type(llm=OpenAI(openai_api_key=api_key), chain_type="stuff", retriever=retriever)
+
     
