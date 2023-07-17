@@ -5,6 +5,7 @@ from langchain.text_splitter import CharacterTextSplitter
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.vectorstores import Chroma
 from langchain.chains import RetrievalQA
+from pypdf import PdfReader
 
 # Build an Ask the Doc app
 
@@ -22,10 +23,18 @@ openai.api_key = api_key
 question = st.text_input("Enter your question here: ", placeholder="What is the summary of the document?", disabled = not uploaded_file)
 
 
+def load_pdf_data(uploaded_file):
+    pdf = PdfReader(uploaded_file)
+    text = ""
+    for page in pdf.pages:
+        text += page.extract_text()
+    return text
+
+
 def generate_response(uploaded_file, api_key, question):
     if uploaded_file is not None:
         st.write("File uploaded")
-        doc = [uploaded_file.read().decode("utf-16")]
+        doc = load_pdf_data(uploaded_file)
         st.write(doc[:100])
         # split the text into chunks
         text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
