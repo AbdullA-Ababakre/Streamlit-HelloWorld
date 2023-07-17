@@ -35,7 +35,6 @@ def generate_response(uploaded_file, api_key, question):
     if uploaded_file is not None:
         st.write("File uploaded")
         doc = load_pdf_data(uploaded_file)
-        st.write(doc[:100])
         # split the text into chunks
         text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
         texts = text_splitter.create_documents(doc)
