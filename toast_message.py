@@ -3,16 +3,19 @@ import time
 
 st.title("Toast Message")
 
-st.toast('You can use emoji :sunglasses: in toast message')
+if st.button('Try Emojis'):
+    st.toast('You can use emoji :sunglasses: in toast message')
 
-time.sleep(0.5)
+    time.sleep(0.5)
 
-st.toast('''You can use LaTeX: 
-        $$ X^2 $$
-        ''')
+if st.button('Try LaTeX'):
+    st.toast('''You can use LaTeX: 
+            $$ X^2 $$
+            ''')
 
-time.sleep(0.5)
+    time.sleep(0.5)
 
-st.toast('''You can change text color 
-        :red[Red] :blue[Blue] :green[Green] :orange[Orange]  :violet[Violet]
-        ''')
+if st.button('Try Colored Text'):
+    st.toast('''You can change text color 
+            :red[Red] :blue[Blue] :green[Green] :orange[Orange]  :violet[Violet]
+            ''')
