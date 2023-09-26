@@ -18,6 +18,18 @@ c = (
 st.altair_chart(c, use_container_width=True)
 
 #using st.scatter_chart
-chart_data = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
 
-#st.scatter_chart(chart_data)
+st.scatter_chart(data=chart_data, x="a", y="b", size="c", color="c")
+
+from vega_datasets import data
+
+source = data.cars()
+chart = alt.Chart(source).mark_circle().encode(
+    x='Horsepower',
+    y='Miles_per_Gallon',
+    color='Origin',
+).interactive()
+
+st.altair_chart(chart, theme="streamlit", use_container_width=True)
+
+st.scatter_chart(source, x="Horsepower", y="Miles_per_Gallon", color="Origin")
