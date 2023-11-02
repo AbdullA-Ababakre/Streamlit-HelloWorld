@@ -26,6 +26,11 @@ class TestChatbotApp(unittest.TestCase):
         """Test if the initial assistant message is rendered."""
         at = AppTest.from_file("streamlit_1_28.py").run()
         assert len(at.chat_message) == 1
+    
+    def test_chat_input(self):
+        """Test if the chat input exists."""
+        at = AppTest.from_file("streamlit_1_28.py").run()
+        assert len(at.chat_input) == 1
 
     @patch("openai.ChatCompletion.create")
     def test_openai_api(self, mock_openai):
